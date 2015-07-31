@@ -1,4 +1,4 @@
-package main
+package cxlogger
 
 // see http://godoc.org/github.com/inconshreveable/log15 for more info
 import (
@@ -7,10 +7,10 @@ import (
 	log "gopkg.in/inconshreveable/log15.v2"
 )
 
-func main() {
-	Initialize("STDOUT", "debug")
-	Debug("test!")
-}
+// func main() {
+// 	Initialize("STDOUT", "debug")
+// 	Debug("test!")
+// }
 
 type Logger struct {
 	log.Logger
