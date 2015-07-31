@@ -126,26 +126,6 @@ func (l *Logger) Crit(v ...interface{}) {
 	}
 }
 
-func (l *Logger) Debugf(format string, v ...interface{}) {
-	l.Debug(fmt.Sprintf(format, v...))
-}
-
-func (l *Logger) Infof(format string, v ...interface{}) {
-	l.Info(fmt.Sprintf(format, v...))
-}
-
-func (l *Logger) Warnf(format string, v ...interface{}) {
-	l.Warn(fmt.Sprintf(format, v...))
-}
-
-func (l *Logger) Errorf(format string, v ...interface{}) {
-	l.Error(fmt.Sprintf(format, v...))
-}
-
-func (l *Logger) Critf(format string, v ...interface{}) {
-	l.Crit(fmt.Sprintf(format, v...))
-}
-
 func ErrorMultiHandler(normalHandler, errorHandler log.Handler) log.Handler {
 	return log.FuncHandler(func(r *log.Record) error {
 		if len(r.Ctx) > 1 {
@@ -162,3 +142,21 @@ func ErrorMultiHandler(normalHandler, errorHandler log.Handler) log.Handler {
 		return nil
 	})
 }
+
+func (l *Logger) Debugf(format string, v ...interface{}) { l.Debug(fmt.Sprintf(format, v...)) }
+func (l *Logger) Infof(format string, v ...interface{})  { l.Info(fmt.Sprintf(format, v...)) }
+func (l *Logger) Warnf(format string, v ...interface{})  { l.Warn(fmt.Sprintf(format, v...)) }
+func (l *Logger) Errorf(format string, v ...interface{}) { l.Error(fmt.Sprintf(format, v...)) }
+func (l *Logger) Critf(format string, v ...interface{})  { l.Crit(fmt.Sprintf(format, v...)) }
+
+func Debug(v ...interface{}) { Log.Debug(v) }
+func Info(v ...interface{})  { Log.Info(v) }
+func Warn(v ...interface{})  { Log.Warn(v) }
+func Error(v ...interface{}) { Log.Error(v) }
+func Crit(v ...interface{})  { Log.Crit(v) }
+
+func Debugf(format string, v ...interface{}) { Log.Debugf(format, v) }
+func Infof(format string, v ...interface{})  { Log.Infof(format, v) }
+func Warnf(format string, v ...interface{})  { Log.Warnf(format, v) }
+func Errorf(format string, v ...interface{}) { Log.Errorf(format, v) }
+func Critf(format string, v ...interface{})  { Log.Crit(format, v) }
