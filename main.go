@@ -1,4 +1,4 @@
-package cxlogger
+package main
 
 // see http://godoc.org/github.com/inconshreveable/log15 for more info
 import (
@@ -6,6 +6,11 @@ import (
 
 	log "gopkg.in/inconshreveable/log15.v2"
 )
+
+func main() {
+	Initialize("STDOUT", "debug")
+	Debug("test!")
+}
 
 type Logger struct {
 	log.Logger
@@ -57,6 +62,9 @@ func Initialize(logOut string, lvl interface{}) error {
 }
 
 func (l *Logger) Debug(v ...interface{}) {
+	if interfaces, ok := v[0].([]interface{}); ok {
+		v = interfaces
+	}
 	err, ok := v[0].(error)
 	if ok {
 		l.Logger.Debug(err.Error(), "err", err)
@@ -71,6 +79,9 @@ func (l *Logger) Debug(v ...interface{}) {
 }
 
 func (l *Logger) Info(v ...interface{}) {
+	if interfaces, ok := v[0].([]interface{}); ok {
+		v = interfaces
+	}
 	err, ok := v[0].(error)
 	if ok {
 		l.Logger.Info(err.Error(), "err", err)
@@ -85,6 +96,9 @@ func (l *Logger) Info(v ...interface{}) {
 }
 
 func (l *Logger) Warn(v ...interface{}) {
+	if interfaces, ok := v[0].([]interface{}); ok {
+		v = interfaces
+	}
 	err, ok := v[0].(error)
 	if ok {
 		l.Logger.Warn(err.Error(), "err", err)
@@ -99,6 +113,9 @@ func (l *Logger) Warn(v ...interface{}) {
 }
 
 func (l *Logger) Error(v ...interface{}) {
+	if interfaces, ok := v[0].([]interface{}); ok {
+		v = interfaces
+	}
 	err, ok := v[0].(error)
 	if ok {
 		l.Logger.Error(err.Error(), "err", err)
@@ -113,6 +130,9 @@ func (l *Logger) Error(v ...interface{}) {
 }
 
 func (l *Logger) Crit(v ...interface{}) {
+	if interfaces, ok := v[0].([]interface{}); ok {
+		v = interfaces
+	}
 	err, ok := v[0].(error)
 	if ok {
 		l.Logger.Crit(err.Error(), "err", err)
