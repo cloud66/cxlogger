@@ -145,6 +145,36 @@ func (l *Logger) Warnf(format string, v ...interface{})  { l.Warn(fmt.Sprintf(fo
 func (l *Logger) Errorf(format string, v ...interface{}) { l.Error(fmt.Sprintf(format, v...)) }
 func (l *Logger) Critf(format string, v ...interface{})  { l.Crit(fmt.Sprintf(format, v...)) }
 
+func (l *Logger) DebugIndent(indentation int, v ...interface{}) {
+	l.outputWithIndentation(func(l *Logger, v ...interface{}) {
+		l.Debug(v...)
+	}, indentation, v...)
+}
+
+func (l *Logger) InfoIndent(indentation int, v ...interface{}) {
+	l.outputWithIndentation(func(l *Logger, v ...interface{}) {
+		l.Info(v...)
+	}, indentation, v...)
+}
+
+func (l *Logger) WarnIndent(indentation int, v ...interface{}) {
+	l.outputWithIndentation(func(l *Logger, v ...interface{}) {
+		l.Warn(v...)
+	}, indentation, v...)
+}
+
+func (l *Logger) ErrorIndent(indentation int, v ...interface{}) {
+	l.outputWithIndentation(func(l *Logger, v ...interface{}) {
+		l.Error(v...)
+	}, indentation, v...)
+}
+
+func (l *Logger) CritIndent(indentation int, v ...interface{}) {
+	l.outputWithIndentation(func(l *Logger, v ...interface{}) {
+		l.Crit(v...)
+	}, indentation, v...)
+}
+
 func (l *Logger) IncreaseIndentation() {
 	contextIndentations[l.Context] += 1
 }
@@ -167,6 +197,12 @@ func (l *Logger) output(logFunc func(l *log.Logger, msg string, v ...interface{}
 	}
 }
 
+func (l *Logger) outputWithIndentation(logFunc func(l *Logger, v ...interface{}), indentation int, v ...interface{}) {
+	oldIndentation := contextIndentations[l.Context]
+	contextIndentations[l.Context] = indentation
+	logFunc(l, v...)
+	contextIndentations[l.Context] = oldIndentation
+}
 func (l *Logger) currentIndentation() string {
 	return Indentation(contextIndentations[l.Context])
 }
