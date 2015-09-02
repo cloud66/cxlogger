@@ -95,31 +95,31 @@ func (l *Logger) Initialize(logOut string, lvl interface{}) error {
 func (l *Logger) Debug(v ...interface{}) {
 	l.output(func(l log.Logger, msg string, v ...interface{}) {
 		l.Debug(msg, v...)
-	}, v)
+	}, v...)
 }
 
 func (l *Logger) Info(v ...interface{}) {
 	l.output(func(l log.Logger, msg string, v ...interface{}) {
 		l.Info(msg, v...)
-	}, v)
+	}, v...)
 }
 
 func (l *Logger) Warn(v ...interface{}) {
 	l.output(func(l log.Logger, msg string, v ...interface{}) {
 		l.Warn(msg, v...)
-	}, v)
+	}, v...)
 }
 
 func (l *Logger) Error(v ...interface{}) {
 	l.output(func(l log.Logger, msg string, v ...interface{}) {
 		l.Error(msg, v...)
-	}, v)
+	}, v...)
 }
 
 func (l *Logger) Crit(v ...interface{}) {
 	l.output(func(l log.Logger, msg string, v ...interface{}) {
 		l.Crit(msg, v...)
-	}, v)
+	}, v...)
 }
 
 func ErrorMultiHandler(normalHandler, errorHandler log.Handler) log.Handler {
@@ -154,16 +154,13 @@ func (l *Logger) DecreaseIndentation() {
 }
 
 func (l *Logger) output(logFunc func(l log.Logger, msg string, v ...interface{}), v ...interface{}) {
-	if interfaces, ok := v[0].([]interface{}); ok {
-		v = interfaces
-	}
 	err, ok := v[0].(error)
 	if ok {
 		logFunc(l.Logger, l.currentIndentation()+err.Error(), "err", err)
 	} else {
 		msg := v[0].(string)
 		if len(v) > 1 {
-			logFunc(l.Logger, l.currentIndentation()+msg, v[1:])
+			logFunc(l.Logger, l.currentIndentation()+msg, v[1:]...)
 		} else {
 			logFunc(l.Logger, l.currentIndentation()+msg)
 		}
