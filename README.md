@@ -31,6 +31,22 @@ func main() {
     cxlogger.Warn(error_value)
     cxlogger.Error(error_value)
     cxlogger.Crit(error_value)
+
+	// Add Indentation
+	cxlogger.Debug("Beginning of my function") // The output is:
+	cxlogger.IncreaseIndentation()             // 
+	cxlogger.Debug("blah blah blah")           // Beginning of my function
+	cxlogger.DecreaseIndentation()             //   blah blah blah
+	cxlogger.Debug("End of my function")       // End of my function
+
+	// Manual indentation
+	cxlogger.DebugIndent(1, "This message will have one level of indentation")
+
+	// It is possible to use different contexts
+	cxlogger.Context = "Thread1"
+	// or to create a new logger for each context
+	mylogger := cxlogger.NewWithContext("Thread2", out, level)
+
 }
 ```
 
