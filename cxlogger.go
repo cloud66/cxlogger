@@ -93,32 +93,32 @@ func (l *Logger) Initialize(logOut string, lvl interface{}) error {
 }
 
 func (l *Logger) Debug(v ...interface{}) {
-	l.output(func(l log.Logger, msg string, v ...interface{}) {
-		l.Debug(msg, v...)
+	l.output(func(l *log.Logger, msg string, v ...interface{}) {
+		(*l).Debug(msg, v...)
 	}, v...)
 }
 
 func (l *Logger) Info(v ...interface{}) {
-	l.output(func(l log.Logger, msg string, v ...interface{}) {
-		l.Info(msg, v...)
+	l.output(func(l *log.Logger, msg string, v ...interface{}) {
+		(*l).Info(msg, v...)
 	}, v...)
 }
 
 func (l *Logger) Warn(v ...interface{}) {
-	l.output(func(l log.Logger, msg string, v ...interface{}) {
-		l.Warn(msg, v...)
+	l.output(func(l *log.Logger, msg string, v ...interface{}) {
+		(*l).Warn(msg, v...)
 	}, v...)
 }
 
 func (l *Logger) Error(v ...interface{}) {
-	l.output(func(l log.Logger, msg string, v ...interface{}) {
-		l.Error(msg, v...)
+	l.output(func(l *log.Logger, msg string, v ...interface{}) {
+		(*l).Error(msg, v...)
 	}, v...)
 }
 
 func (l *Logger) Crit(v ...interface{}) {
-	l.output(func(l log.Logger, msg string, v ...interface{}) {
-		l.Crit(msg, v...)
+	l.output(func(l *log.Logger, msg string, v ...interface{}) {
+		(*l).Crit(msg, v...)
 	}, v...)
 }
 
@@ -153,16 +153,16 @@ func (l *Logger) DecreaseIndentation() {
 	contextIndentations[l.Context] -= 1
 }
 
-func (l *Logger) output(logFunc func(l log.Logger, msg string, v ...interface{}), v ...interface{}) {
+func (l *Logger) output(logFunc func(l *log.Logger, msg string, v ...interface{}), v ...interface{}) {
 	err, ok := v[0].(error)
 	if ok {
-		logFunc(l.Logger, l.currentIndentation()+err.Error(), "err", err)
+		logFunc(&l.Logger, l.currentIndentation()+err.Error(), "err", err)
 	} else {
 		msg := v[0].(string)
 		if len(v) > 1 {
-			logFunc(l.Logger, l.currentIndentation()+msg, v[1:]...)
+			logFunc(&l.Logger, l.currentIndentation()+msg, v[1:]...)
 		} else {
-			logFunc(l.Logger, l.currentIndentation()+msg)
+			logFunc(&l.Logger, l.currentIndentation()+msg)
 		}
 	}
 }
