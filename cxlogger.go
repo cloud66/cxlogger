@@ -179,4 +179,4 @@ func Debugf(format string, v ...interface{}) { Log.Debugf(format, v) }
 func Infof(format string, v ...interface{})  { Log.Infof(format, v) }
 func Warnf(format string, v ...interface{})  { Log.Warnf(format, v) }
 func Errorf(format string, v ...interface{}) { Log.Errorf(format, v) }
-func Critf(format string, v ...interface{})  { Log.Crit(format, v) }
+func Critf(format string, v ...interface{})  { Log.Critf(format, v) }
