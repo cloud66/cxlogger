@@ -187,17 +187,17 @@ func Initialize(logOut string, lvl interface{}) error {
 	return Log.InitializeWithContext("main", logOut, lvl)
 }
 
-func Debug(v ...interface{}) { Log.Debug(v) }
-func Info(v ...interface{})  { Log.Info(v) }
-func Warn(v ...interface{})  { Log.Warn(v) }
-func Error(v ...interface{}) { Log.Error(v) }
-func Crit(v ...interface{})  { Log.Crit(v) }
+func Debug(v ...interface{}) { Log.Debug(v...) }
+func Info(v ...interface{})  { Log.Info(v...) }
+func Warn(v ...interface{})  { Log.Warn(v...) }
+func Error(v ...interface{}) { Log.Error(v...) }
+func Crit(v ...interface{})  { Log.Crit(v...) }
 
-func Debugf(format string, v ...interface{}) { Log.Debugf(format, v) }
-func Infof(format string, v ...interface{})  { Log.Infof(format, v) }
-func Warnf(format string, v ...interface{})  { Log.Warnf(format, v) }
-func Errorf(format string, v ...interface{}) { Log.Errorf(format, v) }
-func Critf(format string, v ...interface{})  { Log.Critf(format, v) }
+func Debugf(format string, v ...interface{}) { Log.Debugf(format, v...) }
+func Infof(format string, v ...interface{})  { Log.Infof(format, v...) }
+func Warnf(format string, v ...interface{})  { Log.Warnf(format, v...) }
+func Errorf(format string, v ...interface{}) { Log.Errorf(format, v...) }
+func Critf(format string, v ...interface{})  { Log.Critf(format, v...) }
 
 func IncreaseIndentation() { Log.IncreaseIndentation() }
 func DecreaseIndentation() { Log.DecreaseIndentation() }
