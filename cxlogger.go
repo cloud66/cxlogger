@@ -1,11 +1,26 @@
 package cxlogger
 
 // see http://godoc.org/github.com/inconshreveable/log15 for more info
-import log "gopkg.in/inconshreveable/log15.v2"
+import (
+	"sync"
+
+	log "gopkg.in/inconshreveable/log15.v2"
+)
 
 const tabWidth = 2
 
-var contextIndentations = make(map[string]int)
+type ContextAttributes struct {
+	sync.RWMutex
+	Indentations map[string]int
+}
+
+func NewContextAttributes() *ContextAttributes {
+	var c ContextAttributes
+	c.Indentations = make(map[string]int)
+	return &c
+}
+
+var contextAttributes = NewContextAttributes()
 
 // func main() {
 // 	Initialize("STDOUT", "debug")

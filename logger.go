@@ -140,11 +140,15 @@ func (l *Logger) CritIndent(indentation int, v ...interface{}) {
 }
 
 func (l *Logger) IncreaseIndentation() {
-	contextIndentations[l.Context] += 1
+	contextAttributes.Lock()
+	defer contextAttributes.Unlock()
+	contextAttributes.Indentations[l.Context] += 1
 }
 
 func (l *Logger) DecreaseIndentation() {
-	contextIndentations[l.Context] -= 1
+	contextAttributes.Lock()
+	defer contextAttributes.Unlock()
+	contextAttributes.Indentations[l.Context] -= 1
 }
 
 func errorMultiHandler(normalHandler, errorHandler log.Handler) log.Handler {
@@ -179,12 +183,16 @@ func (l *Logger) output(logFunc func(l *log.Logger, msg string, v ...interface{}
 }
 
 func (l *Logger) outputWithIndentation(logFunc func(l *Logger, v ...interface{}), indentation int, v ...interface{}) {
-	oldIndentation := contextIndentations[l.Context]
-	contextIndentations[l.Context] = indentation
+	contextAttributes.Lock()
+	defer contextAttributes.Unlock()
+	oldIndentation := contextAttributes.Indentations[l.Context]
+	contextAttributes.Indentations[l.Context] = indentation
 	logFunc(l, v...)
-	contextIndentations[l.Context] = oldIndentation
+	contextAttributes.Indentations[l.Context] = oldIndentation
 }
 
 func (l *Logger) currentIndentation() string {
-	return strings.Repeat(" ", tabWidth*contextIndentations[l.Context])
+	contextAttributes.RLock()
+	defer contextAttributes.RUnlock()
+	return strings.Repeat(" ", tabWidth*contextAttributes.Indentations[l.Context])
 }
