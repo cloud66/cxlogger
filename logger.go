@@ -1,13 +1,12 @@
 package cxlogger
 
-// see http://godoc.org/github.com/inconshreveable/log15 for more info
 import (
 	"fmt"
 	"math/rand"
 	"strings"
 	"time"
 
-	log "github.com/inconshreveable/log15"
+	log "gopkg.in/inconshreveable/log15.v2"
 )
 
 type Logger struct {

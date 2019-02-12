@@ -1,10 +1,9 @@
 package cxlogger
 
-// see http://godoc.org/github.com/inconshreveable/log15 for more info
+// see https://godoc.org/gopkg.in/inconshreveable/log15.v2 for more info
 import (
 	"sync"
-
-	log "github.com/inconshreveable/log15"
+	log "gopkg.in/inconshreveable/log15.v2"
 )
 
 const tabWidth = 2

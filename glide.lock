@@ -1,10 +1,8 @@
-hash: 3ba38a7ffb970d6aeda66df8852cf648623dd2f1ff21312e2c16148f5ef6c645
-updated: 2019-02-12T12:18:17.059239Z
+hash: b13fe091fd189fc02cc265100c8dce3e931fa4b5c09878ea34c1b89e5d9419ac
+updated: 2019-02-12T12:33:16.647403Z
 imports:
 - name: github.com/go-stack/stack
   version: 2fee6af1a9795aafbe0253a0cfbdf668e1fb8a9a
-- name: github.com/inconshreveable/log15
-  version: 67afb5ed74ec82fd7ac8f49d27c509ac6f991970
 - name: github.com/mattn/go-colorable
   version: efa589957cd060542a26d2dd7832fd6a6c6c3ade
 - name: github.com/mattn/go-isatty
